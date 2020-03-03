@@ -8,23 +8,39 @@ const rulesExample = {
   foo: 'required|string|between:3,10',
   bar: 'integer|min:7',
 }
+
+const capital = [
+  /* name */ 'capital',
+  /* callbackFn */ (v, req, attr) => v.toUpperCase() === v,
+  /* errorMessage */ 'The :attribute is not in capital case',
+]
+
 /**
- * :: Rule -> Object -> S.Either String Object
  *
  * A wrapper for validatorjs, validate data object based on rule(s).
  *
  * ```javascript
  * > rule = { foo: 'required|string|between:3,10' }
- * > validator (rule) ({ foo: 'abc' }) // => Right ({ foo: 'abc' })
- * > validator (rule) ({ foo: 'a' }) // => Left (...)
+ * > validator ([]) (rule) ({ foo: 'abc' }) // => Right ({ foo: 'abc' })
+ * > validator ([]) (rule) ({ foo: 'a' }) // => Left ('...error message.')
  * ```
  */
-const validator =
-  (rules = rulesExample) =>
-    obj =>
-      ap([
-        o => v => v.passes() ? S.Right(o) : S.Left(R.toString(v.errors)),
-        o => new Validator(o, rules),
-      ])(obj)
 
-module.exports = { validator }
+// :: [CustomValidation] -> Rule -> Object -> S.Either String Object
+module.exports =
+  (customs = [capital]) => {
+    register(customs)
+    return (
+      (rules = rulesExample) =>
+        ap([
+          obj => v => v.passes() ? S.Right(obj) : S.Left(R.toString(v.errors.errors)),
+          obj => new Validator(obj, rules),
+        ])
+    )
+  }
+
+function register (customs) {
+  customs.forEach(([name, callbackFn, errorMessage]) => {
+    Validator.register(name, callbackFn, errorMessage)
+  })
+}

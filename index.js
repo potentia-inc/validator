@@ -24,7 +24,11 @@ const ap = uncurry(S.ap)
 
 const customsExample = [
   /* name */ 'capital',
-  /* callbackFn */ (v, req, attr) => v.toUpperCase() === v,
+  /* callbackFn */ (
+    value, // value
+    requirement, // config
+    attribute, // key
+  ) => value.toUpperCase() === value,
   /* errorMessage */ 'The :attribute is not in capital case',
 ]
 

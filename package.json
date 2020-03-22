@@ -11,7 +11,8 @@
     "ripple-lib": "^1.6.4",
     "sanctuary": "^3.0.0",
     "sanctuary-def": "^0.21.1",
-    "validatorjs": "^3.18.1"
+    "validatorjs": "^3.18.1",
+    "web3-utils": "^1.2.6"
   },
   "devDependencies": {
     "eslint": "^6.6.0",

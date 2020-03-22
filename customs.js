@@ -19,8 +19,8 @@ module.exports = [
 
   [
     'decimal',
-    (val, rq, attr) =>
-      bn(val)
+    (v, rq, attr) =>
+      bn(v)
         .shiftedBy(parseInt(rq, 10))
         .isInteger(),
     'The :attribute exceeds decimal place requirement',
@@ -49,5 +49,23 @@ module.exports = [
     'rippleAddress',
     (v, req, attr) => new RippleAPI().isValidAddress(v),
     'The :attribute is not a valid ripple address',
+  ],
+
+  [
+    'rippleTag',
+    (v, req, attr) =>
+      bn(v).isInteger() &&
+      bn(v).gte(0) &&
+      bn(v).lte(2 ** 32 - 1),
+    'The :attribute is not a valid ripple tag (32-bit unsigned integer)',
+  ],
+
+  [
+    'eosMemo',
+    (v, req, attr) =>
+      typeof v === 'string' &&
+      v.length > 0 &&
+      v.length <= 256,
+    'The :attribute is not a valid eos memo (a nonempty string of length <= 256)',
   ],
 ]

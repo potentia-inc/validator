@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "ramda": "^0.26.1",
+    "ripple-lib": "^1.6.4",
     "sanctuary": "^3.0.0",
     "sanctuary-def": "^0.21.1",
     "validatorjs": "^3.18.1"

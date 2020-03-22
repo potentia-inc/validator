@@ -1,6 +1,10 @@
 # validator
 
-##
+## First
+
+see https://github.com/skaterdav85/validatorjs
+
+## Usage
 
 ```javascript
 const validator = require('validator')
@@ -16,6 +20,17 @@ if (S.isLeft(v)) { console.error(v.value) /* validation failed */ }
 if (S.isRight(v)) { console.log('passed!', v.value) /* validation passed */ }
 ```
 
+## Signature For The Main Validator Function
+
+```javascript
+// validator :: Rule -> Object -> S.Maybe String Object
+```
+
+* `Rule` is an alias type for ordinary object.
+* `Object` is the type for input object.
+* When the validation is passed, the output will be a Maybe Right with value the same as input object.
+* When the validation is failed, the output will be a Maybe Left with value a string with informative failure reason.
+
 ## Rules For Crypto-addresses
 
 * Bitcoin: ``rule = { address: `required|string|bitcoinAddress:${network}` } // network: 'mainnet' | 'testnet'``
@@ -24,8 +39,8 @@ if (S.isRight(v)) { console.log('passed!', v.value) /* validation passed */ }
 
 ## Rules For Crypto-address-tags
 
-* Ripple Tag: ``rule = { address: 'string|rippleTag' }``
-* EOS Memo: ``rule = { address: 'string|eosMemo' }``
+* Ripple Tag: ``rule = { tag: 'string|rippleTag' }``
+* EOS Memo: ``rule = { tag: 'string|eosMemo' }``
 
 ## Misc. Rules
 
@@ -38,4 +53,7 @@ if (S.isRight(v)) { console.log('passed!', v.value) /* validation passed */ }
 ## Note
 
 > It is recommended to add a `string` requirement to all rules when validating addresses, tags, amounts.
+
+* https://support.exodus.io/article/828-what-are-destination-tags-and-how-do-i-use-them
+* https://github.com/skaterdav85/validatorjs
 

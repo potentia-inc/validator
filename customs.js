@@ -3,6 +3,8 @@ const { RippleAPI } = require('ripple-lib')
 const web3 = require('web3-utils')
 const bitcoin = require('bitcoinjs-lib')
 const networks = require('./bitcoin-networks')
+const BN = require('bignumber.js')
+const bn = x => new BN(x)
 
 const neitherCase =
   str => str.toUpperCase() !== str &&
@@ -13,6 +15,15 @@ module.exports = [
     /* name */ 'lowercase',
     /* callbackFn */ (v, req, attr) => v.toLowerCase() === v,
     /* errorMessage */ 'The :attribute is not in lower case',
+  ],
+
+  [
+    'decimal',
+    (val, rq, attr) =>
+      bn(val)
+        .shiftedBy(parseInt(rq, 10))
+        .isInteger(),
+    'The :attribute exceeds decimal place requirement',
   ],
 
   [
@@ -27,7 +38,7 @@ module.exports = [
 
   [
     'ethereumAddress',
-    (v, req, attr) =>
+    (v, req = 'checked', attr) =>
       (req === 'unchecked')
         ? web3.isAddress(v)
         : neitherCase(v) !== v && web3.isAddress(v),

@@ -20,3 +20,11 @@
 * Bitcoin: ``rule = { address: `required|string|bitcoinAddress:${network}` } // network: 'mainnet' | 'testnet'``
 * Etherem: ``rule = { address: `required|string|ethereumAddress:${check}` } // check: 'checked' | 'unchecked'``
 * Ripple: ``rule = { address: `required|string|rippleAddress` }``
+
+## Misc. Rules
+
+* Decimal Place: ``rule = { amount: `required|string|numeric|decimal:5` }
+  * `{ amount: '0.0001' } // passed`
+  * `{ amount: '0.00001' } // passed`
+  * `{ amount: '0.000010000' } // passed`
+  * `{ amount: '0.000001' } // failed`

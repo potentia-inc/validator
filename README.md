@@ -17,6 +17,6 @@
 
 ## Rules For Crypto-addresses
 
-* Bitcoin: `rule = { address: ``required|string|bitcoinAddress:${network}`` }`
-* Etherem: `rule = { address: ``required|string|ethereumAddress:${check}`` }`
-* Ripple: `rule = { address: ``required|string|rippleAddress:${check}`` }`
+* Bitcoin: ``rule = { address: `required|string|bitcoinAddress:${network}` } // network: 'mainnet' | 'testnet'``
+* Etherem: ``rule = { address: `required|string|ethereumAddress:${check}` } // check: 'checked' | 'unchecked'``
+* Ripple: ``rule = { address: `required|string|rippleAddress` }``

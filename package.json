@@ -9,6 +9,7 @@
   "dependencies": {
     "bignumber.js": "^9.0.0",
     "bitcoinjs-lib": "^5.1.7",
+    "litecore-lib": "^0.13.22",
     "ramda": "^0.26.1",
     "ripple-lib": "^1.6.4",
     "sanctuary": "^3.0.0",

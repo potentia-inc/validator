@@ -25,16 +25,16 @@ const ap = uncurry(S.ap)
 const customsExample = [
   /* name */ 'capital',
   /* callbackFn */ (
-    value, // value
-    requirement, // config
-    attribute, // key
+    value, // : mixed
+    requirement, // : string
+    attribute, // : string
   ) => value.toUpperCase() === value,
   /* errorMessage */ 'The :attribute is not in capital case',
 ]
 
 const rulesExample = {
-  foo: 'required|string|between:3,10',
-  bar: 'integer|min:7',
+  secret: 'required|string|between:3,10',
+  garden: 'integer|min:7',
 }
 
 // :: Array CustomValidation -> Rule -> Object -> S.Either String Object

@@ -10,13 +10,15 @@ const neitherCase =
   str => str.toUpperCase() !== str &&
     str.toLowerCase() !== str
 
-module.exports = [
+const examples = [
   [
     /* name */ 'lowercase',
     /* callbackFn */ (v, req, attr) => v.toLowerCase() === v,
     /* errorMessage */ 'The :attribute is not in lower case',
   ],
+]
 
+const numericals = [
   [
     'decimal',
     (v, rq, attr) =>
@@ -26,6 +28,20 @@ module.exports = [
     'The :attribute exceeds decimal place requirement',
   ],
 
+  [
+    'positive',
+    (v, rq, attr) => bn(v).gt(0),
+    'The :attribute is not a positive numerical',
+  ],
+
+  [
+    'negative',
+    (v, rq, attr) => bn(v).lt(0),
+    'The :attribute is not a negative numerical',
+  ],
+]
+
+const cryptos = [
   [
     'bitcoinAddress',
     (v, req = 'mainnet', attr) =>
@@ -68,4 +84,32 @@ module.exports = [
       v.length <= 256,
     'The :attribute is not a valid eos memo (a nonempty string of length <= 256)',
   ],
+]
+
+const characters = [
+  [
+    /*
+     * reference: https://en.cppreference.com/w/cpp/string/byte/isprint
+     *   space:         20
+     *   punctuations:  21-2F !"#$%&'()*+,-./
+     *   digit:         30-39 0123456789
+     *   punctuations:  3A-40 :;<=>?@
+     *   upper letters: 41-5A ABCDEFGHIJKLMNOPQRSTUVWXYZ
+     *   punctuations:  5B-60 [\]^_`
+     *   lower letters: 61-7A abcdefghijklmnopqrstuvwxyz
+     *   punctuations:  7B-7E {|}~
+     */
+    'isprint',
+    (v, req, attr) =>
+      typeof v === 'string' &&
+      /^[\x20-\x7e]*$/g.test(v),
+    'The :attribute contains invalid characters (printable?)',
+  ],
+]
+
+module.exports = [
+  ...examples,
+  ...numericals,
+  ...cryptos,
+  ...characters,
 ]

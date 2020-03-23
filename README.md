@@ -6,6 +6,10 @@ see https://github.com/skaterdav85/validatorjs
 
 ## Usage
 
+```bash
+npm i git://github.com/potentia-inc/validator.git#v1.2.x
+```
+
 ```javascript
 const validator = require('validator')
 const S = require('sanctuary')
@@ -49,6 +53,17 @@ if (S.isRight(v)) { console.log('passed!', v.value) /* validation passed */ }
   * `{ amount: '0.00001' } // passed`
   * `{ amount: '0.000010000' } // passed`
   * `{ amount: '0.000001' } // failed`
+
+* Positivity: `rule = { amount: 'required|string|numeric|positive' }`
+  * `{ amount: '0.0001' } // passed`
+  * `{ amount: '+0.0001' } // passed`
+  * `{ amount: '-0.00001' } // failed`
+
+* Printable: `rule = { client_id: 'required|string|isprint' }`
+  * `{ client_id: 'alice' } // passed`
+  * `{ client_id: '_bob' } // passed`
+  * `{ client_id: '!carol ' } // passed`
+  * `{ client_id: "dave\x01" } // failed`
 
 ## Note
 

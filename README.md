@@ -27,13 +27,13 @@ if (S.isRight(v)) { console.log('passed!', v.value) /* validation passed */ }
 ## Signature For The Main Validator Function
 
 ```javascript
-// validator :: Rule -> Object -> S.Maybe String Object
+// validator :: Rule -> Object -> S.Either String Object
 ```
 
 * `Rule` is an alias type for ordinary object.
 * `Object` is the type for input object.
-* When the validation is passed, the output will be a Maybe Right with value the same as input object.
-* When the validation is failed, the output will be a Maybe Left with value a string with informative failure reason.
+* When the validation is passed, the output will be a Either Right with value the same as input object.
+* When the validation is failed, the output will be a Either Left with value a string with informative failure reason.
 
 ## Rules For Crypto-addresses
 

@@ -10,6 +10,8 @@ see https://github.com/skaterdav85/validatorjs
 npm i git://github.com/potentia-inc/validator.git#v1.2.x
 ```
 
+### Functional Wrapper
+
 ```javascript
 const validator = require('validator')
 const S = require('sanctuary')
@@ -22,6 +24,15 @@ validator (rule) ({ foo: 'a' })  // => Left ('...failure message.')
 const v = validator(rule)(obj)
 if (S.isLeft(v)) { console.error(v.value) /* validation failed */ }
 if (S.isRight(v)) { console.log('passed!', v.value) /* validation passed */ }
+// or more fluently...
+return S.either (console.error) (console.log) (v)
+//               ^^^ failed goes here   ^^^ passed goes here
+```
+### Validation Rules Exported
+
+```javascript
+const toBeRegistered = require('validator/customs') // :: Array (Array3 String Callback String)
+// ...
 ```
 
 ## Signature For The Main Validator Function
@@ -32,8 +43,8 @@ if (S.isRight(v)) { console.log('passed!', v.value) /* validation passed */ }
 
 * `Rule` is an alias type for ordinary object.
 * `Object` is the type for input object.
-* When the validation is passed, the output will be a Either Right with value the same as input object.
-* When the validation is failed, the output will be a Either Left with value a string of informative failure reason.
+* When the validation is passed, the output will be an Either Right with value the same as input object.
+* When the validation is failed, the output will be an Either Left with value a string of informative failure reason.
 
 ## Rules For Crypto-addresses
 

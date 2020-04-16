@@ -3,7 +3,8 @@ const BN = require('bignumber.js')
 const bn = x => new BN(x)
 
 /* rippple */
-const { RippleAPI } = require('ripple-lib')
+// const { RippleAPI } = require('ripple-lib')
+const ripple = require('ripple-address-codec')
 
 /* ethereum */
 const web3 = require('web3-utils')
@@ -45,8 +46,11 @@ module.exports = [
 
   [
     'rippleAddress',
-    (v, req, attr) => new RippleAPI().isValidAddress(v),
-    'The :attribute is not a valid ripple address',
+    (v, req = 'classic', attr) =>
+      (req === 'classic')
+        ? ripple.isValidClassicAddress(v)
+        : ripple.isValidXAddress(v),
+    'The :attribute is not a valid ripple address (X-Address?)',
   ],
 
   [

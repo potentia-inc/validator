@@ -37,21 +37,25 @@ if (S.isRight(v)) { console.log('passed!', v.value) /* validation passed */ }
 
 ## Rules For Crypto-addresses
 
-* Bitcoin: ``rule = { address: `required|string|bitcoinAddress:${network}` } // network: 'mainnet' | 'testnet'``
-* Litecoin: ``rule = { address: `required|string|litecoinAddress:${network}` } // network: 'mainnet' | 'testnet'``
-* Etherem: ``rule = { address: `required|string|ethereumAddress:${check}` } // check: 'checked' | 'unchecked'``
-* Ripple: ``rule = { address: `required|string|rippleAddress` }``
+* Bitcoin: ``rule = { address: `required|string|bitcoinAddress:${network}` } // network: 'mainnet'* | 'testnet'``
+* Litecoin: ``rule = { address: `required|string|litecoinAddress:${network}` } // network: 'mainnet'* | 'testnet'``
+* Etherem: ``rule = { address: `required|string|ethereumAddress:${check}` } // check: 'checked'* | 'unchecked'``
+* Ripple: ``rule = { address: `required|string|rippleAddress:${type}` } // type: 'classic'* | 'xaddress'``
 
+> Note: `*` indicates default value
+>
 > Note: The following addresses are NOT supported:
 > 1) Litecoin deprecated mainnet p2sh addresses `3...`
 > 2) Litecoin deprecated testnet p2sh addresses `2...`
 > 3) Litecoin mainnet bech32 addresses `ltc...`
 > 4) Litecoin testnet bech32 addresses `tltc...`
+>
 
 ## Rules For Crypto-address-tags
 
 * Ripple Tag: ``rule = { tag: 'string|rippleTag' }``
 * EOS Memo: ``rule = { tag: 'string|eosMemo' }``
+* Stellar Lumens Memo: ``rule = { tag: 'string|stellarLumensMemo' }``
 
 ## Misc. Rules
 

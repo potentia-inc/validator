@@ -93,24 +93,29 @@ test('addresses', () => {
 
 const xrpTag = 'rippleTag'
 const eosMemo = 'eosMemo'
+const xlmMemo = 'stellarLumensMemo'
 
 const _networks = [
   xrpTag,
   eosMemo,
+  xlmMemo
 ]
 
 const _tags = {
-  0: [xrpTag, eosMemo],
-  1: [xrpTag, eosMemo],
-  '00': [xrpTag, eosMemo],
-  '01': [xrpTag, eosMemo],
-  [`${2 ** 32 - 1}`]: [xrpTag, eosMemo],
-  [`${randInt(2 ** 32)}`]: [xrpTag, eosMemo],
-  [`${2 ** 32}`]: [eosMemo],
+  0: [xrpTag, eosMemo, xlmMemo],
+  1: [xrpTag, eosMemo, xlmMemo],
+  '00': [xrpTag, eosMemo, xlmMemo],
+  '01': [xrpTag, eosMemo, xlmMemo],
+  [`${2 ** 32 - 1}`]: [xrpTag, eosMemo, xlmMemo],
+  [`${randInt(2 ** 32)}`]: [xrpTag, eosMemo, xlmMemo],
+  [`${2 ** 32}`]: [eosMemo, xlmMemo],
 
-  hello: [eosMemo],
-  ' world!': [eosMemo],
+  hello: [eosMemo, xlmMemo],
+  ' world!': [eosMemo, xlmMemo],
+  [rand(14)]: [eosMemo, xlmMemo],
+  [rand(14) + 'x']: [eosMemo],
   [rand(128)]: [eosMemo],
+  [rand(128) + 'x']: [],
 
 }
 

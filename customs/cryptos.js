@@ -13,11 +13,15 @@ const bitcoin = require('bitcoinjs-lib')
 const networks = require('./bitcoin-networks')
 
 /* litecoin */
-// const litecoin = require('litecore-lib')
+const litecoin = require('litecore-lib')
 
 const neitherCase =
   str => str.toUpperCase() !== str &&
     str.toLowerCase() !== str
+
+const isNil =
+  x =>
+    x == null
 
 module.exports = [
   [
@@ -35,7 +39,7 @@ module.exports = [
     (v, req = 'checked', attr) =>
       (req === 'unchecked')
         ? web3.isAddress(v)
-        : neitherCase(v) !== v && web3.isAddress(v),
+        : neitherCase(v) && web3.isAddress(v),
     'The :attribute is not a valid ethereum address (checksum?)',
   ],
 
@@ -45,14 +49,17 @@ module.exports = [
     'The :attribute is not a valid ripple address',
   ],
 
-  // [
-  //   'litecoinAddress',
-  //   (v, req = 'mainnet', attr) =>
-  //     litecoin.Address.getValidationError(v,
-  //       req === 'mainnet' ? 'livenet' : 'testnet',
-  //     ) === null,
-  //   'The :attribute is not a valid litecoin address (networks?)',
-  // ],
+  [
+    'litecoinAddress',
+    (v, req = 'mainnet', attr) =>
+      isNil(
+        litecoin.Address.getValidationError(
+          v,
+          req === 'mainnet' ? 'livenet' : 'testnet',
+        ),
+      ),
+    'The :attribute is not a valid litecoin address (networks?)',
+  ],
 
   [
     'rippleTag',

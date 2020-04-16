@@ -33,13 +33,20 @@ if (S.isRight(v)) { console.log('passed!', v.value) /* validation passed */ }
 * `Rule` is an alias type for ordinary object.
 * `Object` is the type for input object.
 * When the validation is passed, the output will be a Either Right with value the same as input object.
-* When the validation is failed, the output will be a Either Left with value a string with informative failure reason.
+* When the validation is failed, the output will be a Either Left with value a string of informative failure reason.
 
 ## Rules For Crypto-addresses
 
 * Bitcoin: ``rule = { address: `required|string|bitcoinAddress:${network}` } // network: 'mainnet' | 'testnet'``
+* Litecoin: ``rule = { address: `required|string|litecoinAddress:${network}` } // network: 'mainnet' | 'testnet'``
 * Etherem: ``rule = { address: `required|string|ethereumAddress:${check}` } // check: 'checked' | 'unchecked'``
 * Ripple: ``rule = { address: `required|string|rippleAddress` }``
+
+> Note: The following addresses are NOT supported:
+> 1) Litecoin deprecated mainnet p2sh addresses `3...`
+> 2) Litecoin deprecated testnet p2sh addresses `2...`
+> 3) Litecoin mainnet bech32 addresses `ltc...`
+> 4) Litecoin testnet bech32 addresses `tltc...`
 
 ## Rules For Crypto-address-tags
 

@@ -36,10 +36,10 @@ const networks = [
 
 const addresses = {
   '17VZNX1SN5NtKa8UQFxwQbFeFc3iqRYhem': [btcMainnet], // 0x00 p2pkh
-  '2MzQwSSnBHWHqSAqtTVQ6v47XtaisrJa1Vc': [btcTestnet/* ltcTestnet */], // 0xC4 p2sh
-  '2N6Jsj94tLbnJ3Ph52opQBkL7ZBWPRcgFVL': [btcTestnet/* ltcTestnet */], // 0xC4 p2sh
-  '3EktnHQD7RiAE6uzMj2ZifT9YgRrkSgzQX': [btcMainnet/* ltcMainnet */], // 0x05 p2sh
-  '3Fg1gezXg9VrBy8MDkkgjRSWixC6bwJ25B': [btcMainnet/* ltcMainnet */], // 0x05 p2sh
+  '2MzQwSSnBHWHqSAqtTVQ6v47XtaisrJa1Vc': [btcTestnet/*, ltcTestnet */], // 0xC4 p2sh
+  '2N6Jsj94tLbnJ3Ph52opQBkL7ZBWPRcgFVL': [btcTestnet/*, ltcTestnet */], // 0xC4 p2sh
+  '3EktnHQD7RiAE6uzMj2ZifT9YgRrkSgzQX': [btcMainnet/*, ltcMainnet */], // 0x05 p2sh
+  '3Fg1gezXg9VrBy8MDkkgjRSWixC6bwJ25B': [btcMainnet/*, ltcMainnet */], // 0x05 p2sh
   mipcBbFg9gMiCh81Kj8tqqdgoZub1ZJRfn: [btcTestnet, ltcTestnet], // 0x6F p2pkh
   n4dESXfgxPHfqDdXp4Z2EUbWUL9dkCb2um: [btcTestnet, ltcTestnet], // 0x6F p2pkh
   MTf4tP1TCNBn8dNkyxeBVoPrFCcVzxJvvh: [/* blank */ltcMainnet], // 0x32 p2sh
@@ -98,7 +98,7 @@ const xlmMemo = 'stellarLumensMemo'
 const _networks = [
   xrpTag,
   eosMemo,
-  xlmMemo
+  xlmMemo,
 ]
 
 const _tags = {

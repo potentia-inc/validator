@@ -10,12 +10,11 @@
     "bignumber.js": "^9.0.0",
     "bitcoinjs-lib": "^5.1.7",
     "bn.js": "^5.1.1",
-    "eth-lib": "^0.1.29",
+    "ramda": "0.27.0",
     "litecore-lib": "^0.13.22",
     "ripple-address-codec": "^4.1.1",
     "sanctuary": "^3.0.0",
     "sanctuary-def": "^0.21.1",
-    "underscore": "^1.10.2",
     "validatorjs": "^3.18.1"
   },
   "devDependencies": {

@@ -7,7 +7,7 @@ const bn = x => new BN(x)
 const ripple = require('ripple-address-codec')
 
 /* ethereum */
-const web3 = require('web3-utils')
+const ethAddress = require('./ethAddress.js')
 
 /* bitcoin */
 const bitcoin = require('bitcoinjs-lib')
@@ -51,8 +51,8 @@ module.exports = [
     'ethereumAddress',
     (v, req = 'checked', attr) =>
       (req === 'unchecked')
-        ? web3.isAddress(v)
-        : neitherCase(v) && web3.isAddress(v),
+        ? ethAddress.isAddress(v)
+        : neitherCase(v) && ethAddress.isAddress(v),
     'The :attribute is not a valid ethereum address (checksum?)',
   ],
 
@@ -102,3 +102,4 @@ module.exports = [
     'The :attribute is not a valid stella lumens memo (a nonempty string of length <= 28)',
   ],
 ]
+

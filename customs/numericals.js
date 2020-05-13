@@ -18,6 +18,12 @@ module.exports = [
   ],
 
   [
+    'nonnegative',
+    (v, rq, attr) => bn(v).gte(0),
+    'The :attribute is not a nonnegative numerical',
+  ],
+
+  [
     'negative',
     (v, rq, attr) => bn(v).lt(0),
     'The :attribute is not a negative numerical',

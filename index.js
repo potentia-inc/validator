@@ -1,55 +1,40 @@
-const R = require('ramda')
 const S = require('sanctuary')
 const Validator = require('validatorjs')
-const uncurry = fn => arr => arr.reduce((f, c) => f(c), fn)
-const ap = uncurry(S.ap)
+
+// ∷ Rule → Object → S.Either Object Object
+module.exports = customValidation(require('./customs'))
+
 /**
  *
- * A wrapper for validatorjs, validate data object based on rule(s).
+ * A simple wrapper for validatorjs, which validate data object based on rule(s), features:
+ *   curried parameters
+ *   typed return value (Either)
  *
  * ```javascript
- * >
- * > const validator = require('validator')
- * > const S = require('sanctuary')
  *
- * > rule = { foo: 'required|string|between:3,10' }
- * > validator (rule) ({ foo: 'abc' })  // => Right ({ foo: 'abc' })
- * > validator (rule) ({ foo: 'a' })  // => Left ('...failure message.')
- * >
- * > const v = v(rule)
- * > if (S.isLeft(v(obj))) { console.error(v.value) // validation failed }
- * > if (S.isRight(v(obj))) { console.log('passed!') // validation passed }
+ * const validator = require('validator')
+ * const S = require('sanctuary')
+ *
+ * rule = { foo: 'required|string|between:3,10' }
+ * validator (rule) ({ foo: 'abc' })  // => Right ({ foo: 'abc' })
+ * validator (rule) ({ foo: 'a' })    // => Left ('...failure message.')
+ *
+ * const v = validator (rule)
+ * if (S.isLeft (v (obj))) { console.error (v.value) } // validation failed
+ * if (S.isRight (v (obj))) { console.log ('passed!') } // validation passed
+ *
  * ```
  */
 
-const customsExample = [
-  /* name */ 'capital',
-  /* callbackFn */ (
-    value, // : mixed
-    requirement, // : string
-    attribute, // : string
-  ) => value.toUpperCase() === value,
-  /* errorMessage */ 'The :attribute is not in capital case',
-]
-
-const rulesExample = {
-  secret: 'required|string|between:3,10',
-  garden: 'integer|min:7',
-}
-
-// :: Array CustomValidation -> Rule -> Object -> S.Either String Object
-const customValidation =
-  (customs = [customsExample]) => {
-    customs.forEach(([name, callbackFn, errorMessage]) => {
-      Validator.register(name, callbackFn, errorMessage)
-    })
-    return (
-      (rules = rulesExample) =>
-        ap([
-          obj => v => v.passes() ? S.Right(obj) : S.Left(R.toString(v.errors.errors)),
-          obj => new Validator(obj, rules),
-        ])
-    )
+// ∷ [{ name, callbackFn, errorMessage }] → Rule → Object → S.Either Object Object
+function customValidation (customs = []) {
+  customs.forEach(c => { Validator.register(c.name, c.callbackFn, c.errorMessage) })
+  return function (rule /* ∷ StrMap String */) {
+    return function (obj) {
+      const v = new Validator(obj, rule)
+      return v.passes()
+        ? S.Right(obj)
+        : S.Left(v.errors.errors)
+    }
   }
-
-module.exports = customValidation(require('./customs'))
+}

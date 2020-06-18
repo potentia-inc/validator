@@ -25,63 +25,63 @@ const isNil =
     x == null
 
 module.exports = [
-  [
-    'bitcoinAddress',
-    (v, req = 'mainnet', attr) =>
+  {
+    name: 'bitcoinAddress',
+    callbackFn: (v, req = 'mainnet', attr) =>
       R.tryCatch(
-        () => bitcoin.address.toOutputScript(v, networks[`bitcoin-${req}`]) && true,
-        () => false,
+        _ => bitcoin.address.toOutputScript(v, networks[`bitcoin-${req}`]) && true,
+        _ => false,
       )(v),
-    'The :attribute is not a valid bitcoin address (networks?)',
-  ],
+    errorMessage: 'The :attribute is not a valid bitcoin address (networks?)',
+  },
 
-  [
-    'litecoinAddress',
-    (v, req = 'mainnet', attr) =>
+  {
+    name: 'litecoinAddress',
+    callbackFn: (v, req = 'mainnet', attr) =>
       isNil(
         litecoin.Address.getValidationError(
           v,
           req === 'mainnet' ? 'livenet' : 'testnet',
         ),
       ),
-    'The :attribute is not a valid litecoin address (networks?)',
-  ],
+    errorMessage: 'The :attribute is not a valid litecoin address (networks?)',
+  },
 
-  [
-    'ethereumAddress',
-    (v, req = 'checked', attr) =>
+  {
+    name: 'ethereumAddress',
+    callbackFn: (v, req = 'checked', attr) =>
       (req === 'unchecked')
         ? ethAddress.isAddress(v)
         : neitherCase(v) && ethAddress.isAddress(v),
-    'The :attribute is not a valid ethereum address (checksum?)',
-  ],
+    errorMessage: 'The :attribute is not a valid ethereum address (checksum?)',
+  },
 
-  [
-    'rippleAddress',
-    (v, req = 'classic', attr) =>
+  {
+    name: 'rippleAddress',
+    callbackFn: (v, req = 'classic', attr) =>
       (req === 'classic')
         ? ripple.isValidClassicAddress(v)
         : ripple.isValidXAddress(v),
-    'The :attribute is not a valid ripple address (X-Address?)',
-  ],
+    errorMessage: 'The :attribute is not a valid ripple address (X-Address?)',
+  },
 
-  [
-    'rippleTag',
-    (v, req, attr) =>
+  {
+    name: 'rippleTag',
+    callbackFn: (v, req, attr) =>
       bn(v).isInteger() &&
       bn(v).gte(0) &&
       bn(v).lte(2 ** 32 - 1),
-    'The :attribute is not a valid ripple tag (32-bit unsigned integer)',
-  ],
+    errorMessage: 'The :attribute is not a valid ripple tag (32-bit unsigned integer)',
+  },
 
-  [
-    'eosMemo',
-    (v, req, attr) =>
+  {
+    name: 'eosMemo',
+    callbackFn: (v, req, attr) =>
       typeof v === 'string' &&
       v.length > 0 &&
       v.length <= 256,
-    'The :attribute is not a valid eos memo (a nonempty string of length <= 256)',
-  ],
+    errorMessage: 'The :attribute is not a valid eos memo (a nonempty string of length <= 256)',
+  },
 
   /**
    * Stellar Lumens Memo:
@@ -93,13 +93,12 @@ module.exports = [
    *   MEMO_RETURN : A 32 byte hash intended to be interpreted as the hash of the transaction the sender is refunding.
    *
    */
-  [
-    'stellarLumensMemo',
-    (v, req, attr) =>
+  {
+    name: 'stellarLumensMemo',
+    callbackFn: (v, req, attr) =>
       typeof v === 'string' &&
       v.length > 0 &&
       v.length <= 28,
-    'The :attribute is not a valid stella lumens memo (a nonempty string of length <= 28)',
-  ],
+    errorMessage: 'The :attribute is not a valid stella lumens memo (a nonempty string of length <= 28)',
+  },
 ]
-

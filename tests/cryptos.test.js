@@ -52,9 +52,21 @@ const addresses = {
   tltc1qlr9vv03y4tczv62fqackkpqrgfhtu68kkc3cv6: [/* ltcTestnet */], // bech32
 
   '0xdAC17F958D2ee523a2206206994597C13D831ec7': [ethChecked, ethUnchecked],
-  '0xdac17f958d2ee523a2206206994597c13d831ec7': [ethUnchecked],
+  dAC17F958D2ee523a2206206994597C13D831ec7: [ethChecked, ethUnchecked],
+  ['0xdAC17F958D2ee523a2206206994597C13D831ec7'.toLowerCase()]: [ethUnchecked],
+  ['0xdAC17F958D2ee523a2206206994597C13D831ec7'.toUpperCase()]: [ethUnchecked],
+  '0xdac17F958D2ee523a2206206994597C13D831ec7': [],
+
   '0x6e3954bB9447eF184364c28F1653488e15BC3eA9': [ethChecked, ethUnchecked],
-  '0x6e3954bb9447ef184364c28f1653488e15bc3ea9': [ethUnchecked],
+  '6e3954bB9447eF184364c28F1653488e15BC3eA9': [ethChecked, ethUnchecked],
+  ['0x6e3954bB9447eF184364c28F1653488e15BC3eA9'.toLowerCase()]: [ethUnchecked],
+  ['0x6e3954bB9447eF184364c28F1653488e15BC3eA9'.toUpperCase()]: [ethUnchecked],
+  '0x6E3954BB9447eF184364c28F1653488e15BC3eA9': [],
+
+  // invalid ethereum addresses
+  '0xe3954bb9447ef184364c28f1653488e15bc3ea9': [],
+  '0x6e3954bb9447ef184364c28f1653488e15bc3ea': [],
+  '006e3954bb9447ef184364c28f1653488e15bc3ea9': [],
 
   rEb8TK3gBgk5auZkwc6sHnwrGVJH8DuaLh: [xrpClassic],
   r3sNQ2byJykFDV3dN2qPaFuJympgbcHaZY: [xrpClassic],

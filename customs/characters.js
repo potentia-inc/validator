@@ -1,5 +1,5 @@
 module.exports = [
-  [
+  {
     /*
      * reference: https://en.cppreference.com/w/cpp/string/byte/isprint
      *   space:         20
@@ -11,10 +11,8 @@ module.exports = [
      *   lower letters: 61-7A abcdefghijklmnopqrstuvwxyz
      *   punctuations:  7B-7E {|}~
      */
-    'isprint',
-    (v, req, attr) =>
-      typeof v === 'string' &&
-      /^[\x20-\x7e]*$/g.test(v),
-    'The :attribute contains invalid characters (printable?)',
-  ],
+    name: 'isprint',
+    callbackFn: (v, req, attr) => typeof v === 'string' && /^[\x20-\x7e]*$/g.test(v),
+    errorMessage: 'The :attribute contains invalid characters (printable?)',
+  },
 ]

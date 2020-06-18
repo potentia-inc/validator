@@ -13,38 +13,43 @@ npm i git://github.com/potentia-inc/validator.git#v1.2.x
 ### Functional Wrapper
 
 ```javascript
-const validator = require('validator')
-const S = require('sanctuary')
+const validator = require ('validator')
+const S = require ('sanctuary')
 
 const rule = { foo: 'required|string|between:3,10' }
 
 validator (rule) ({ foo: 'abc' })  // => Right ({ foo: 'abc' })
-validator (rule) ({ foo: 'a' })  // => Left ('...failure message.')
+validator (rule) ({ foo: 'a' })  // => Left (/* ... Failed reasons ... */)
 
-const v = validator(rule)(obj)
-if (S.isLeft(v)) { console.error(v.value) /* validation failed */ }
-if (S.isRight(v)) { console.log('passed!', v.value) /* validation passed */ }
+const objV = validator(rule)(obj)
+
+if (S.isLeft (objV)) { console.error ('failed!', objV.value) /* validation failed */ }
+if (S.isRight (objV)) { console.log ('passed!', objV.value) /* validation passed */ }
+
 // or more fluently...
-return S.either (console.error) (console.log) (v)
+
+return S.either (console.error) (console.log) (objV)
+
 //               ^^^ failed goes here   ^^^ passed goes here
 ```
+
 ### Validation Rules Exported
 
 ```javascript
-const toBeRegistered = require('validator/customs') // :: Array (Array3 String Callback String)
+const toBeRegistered = require('validator/customs') // ∷ [{ name: String, callbackFn: Function, errorMessage: String }]
 // ...
 ```
 
 ## Signature For The Main Validator Function
 
 ```javascript
-// validator :: Rule -> Object -> S.Either String Object
+// validator ∷ Rule → Object → S.Either Object Object
 ```
 
-* `Rule` is an alias type for ordinary object.
-* `Object` is the type for input object.
-* When the validation is passed, the output will be an Either Right with value the same as input object.
-* When the validation is failed, the output will be an Either Left with value a string of informative failure reason.
+* `Rule` is an alias type for StrMap String.
+* `Object` is the type for the target object to be validated.
+* When the validation is passed, the output will be an Either Right with value the same as input target object.
+* When the validation is failed, the output will be an Either Left with value consist of informative failure reason.
 
 ## Rules For Crypto-addresses
 
